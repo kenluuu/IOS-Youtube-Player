@@ -11,9 +11,11 @@
 #import <XCDYouTubeVideoPlayerViewController.h>
 
 @interface VideoViewController : UIViewController<UICollectionViewDelegate, UICollectionViewDataSource>
+@property (strong, nonatomic) UIView *videoContainer;
 @property (strong, nonatomic) MPNowPlayingInfoCenter *MPInfoCenter;
 @property (strong, nonatomic) NSString *selectedVideoId;
 @property (strong, nonatomic) NSMutableArray *videos;
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 - (void)handleVideoPressed:(NSMutableArray *)videos selectedVideoId:(NSString *)selectedVideoId;
-
+- (void)handleTap:(UITapGestureRecognizer *)sender;
 @end

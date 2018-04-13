@@ -168,14 +168,20 @@ static NSString *const defaultEndPoint = @"https://www.googleapis.com/youtube/v3
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     VideoCell *cell = (VideoCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
     UIWindow *window = UIApplication.sharedApplication.keyWindow;
+    NSString *selectedVidId = [self.videosList[indexPath.item] videoId];
     if (!((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController) {
         ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController = [[VideoViewController  alloc] init];
         [window addSubview: ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.view];
+    } else {
+        
+        [((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController handleTap:((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.tap];
     }
     
     UIApplication.sharedApplication.keyWindow.windowLevel = UIWindowLevelStatusBar;
-    NSString *selectedVidId = [self.videosList[indexPath.item] videoId];
+        
     [((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController handleVideoPressed:self.videosList selectedVideoId:selectedVidId];
+
+    
     [self addNowPlayingInfo:cell];
 
 }
@@ -214,6 +220,21 @@ static NSString *const defaultEndPoint = @"https://www.googleapis.com/youtube/v3
 //making the minimum vertical line spacing between cells 0
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 0;
+}
+
+//Make Video View Controller video full screen when in landscape mode
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    CGFloat width = size.width;
+    CGFloat height = size.height;
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice.orientation)) {
+            
+            ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.videoContainer.frame = CGRectMake(0, 0, width, width * 9/16);
+        } else {
+            ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.videoContainer.frame = CGRectMake(0, 0, width, height);
+        }
+    } completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

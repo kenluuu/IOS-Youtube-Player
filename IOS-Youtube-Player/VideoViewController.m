@@ -12,7 +12,6 @@
 
 @interface VideoViewController ()
 @property (strong, nonatomic) XCDYouTubeVideoPlayerViewController *videoPlayerController;
-@property (strong, nonatomic) UIView *videoContainer;
 @property (strong, nonatomic) UICollectionView *videoList;
 @property (strong, nonatomic) UIPanGestureRecognizer *pan;
 @end
@@ -36,25 +35,16 @@ static NSString *const cellId = @"cellId";
     self.videoContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, width * 9/16)];
     [self.view addSubview:self.videoContainer];
     self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.videoContainer addGestureRecognizer:self.pan];
     [self createRemoteCommandCenterControls];
     [self playVideoWithId];
     [self createVideoList];
     [self addObservers];
-    [self addSwipeDown];
+
     
 }
-- (void)addSwipeDown {
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeDown)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionDown;
-    [self.view addGestureRecognizer:swipeGesture];
-}
 
-- (void)handleSwipeDown {
-    [self dismissViewControllerAnimated:YES completion:^{
-        UIApplication.sharedApplication.keyWindow.windowLevel = UIWindowLevelNormal;
-    }];
-}
 
 - (void)createRemoteCommandCenterControls {
     [UIApplication.sharedApplication beginReceivingRemoteControlEvents];
@@ -108,8 +98,6 @@ static NSString *const cellId = @"cellId";
 - (void)handleVideoPressed:(NSMutableArray *)videos selectedVideoId:(NSString *)vidId {
     self.videos = videos;
     self.selectedVideoId = vidId;
-    NSLog(@"%@", self.selectedVideoId);
-    NSLog(@"%@", vidId);
     [self playVideoWithId];
     [self.videoList reloadData];
     
@@ -202,26 +190,34 @@ static NSString *const cellId = @"cellId";
                     self.videoContainer.frame = CGRectMake(0, 0, 140, 100);
                 } completion:^(BOOL finished) {
                     UIApplication.sharedApplication.keyWindow.windowLevel = UIWindowLevelNormal;
+                    [self.videoContainer removeGestureRecognizer:self.pan];
+                    UIView *clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 140, 100)];
+                    clearView.backgroundColor = UIColor.clearColor;
+                    [clearView addGestureRecognizer:self.tap];
+                    [self.videoContainer addSubview:clearView];
+                    self.videoPlayerController.moviePlayer.controlStyle = MPMovieControlStyleNone;
                 }];
             }
-            
             break;
         default:
             break;
     }
 }
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    CGFloat width = size.width;
-    CGFloat height = size.height;
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice.orientation)) {
-            self.videoContainer.frame = CGRectMake(0, 0, width, width * 9/16);
-        } else {
-            self.videoContainer.frame = CGRectMake(0, 0, width, height);
-        }
-    } completion:nil];
+
+-(void)handleTap:(UITapGestureRecognizer *)sender {
+    CGFloat screenWidth = UIScreen.mainScreen.bounds.size.width;
+    CGFloat screenHeight = UIScreen.mainScreen.bounds.size.height;
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.view.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        self.videoContainer.frame = CGRectMake(0, 0, screenWidth, screenWidth * 9/16);
+    } completion:^(BOOL finished) {
+        [sender.view removeFromSuperview];
+        [self.videoContainer addGestureRecognizer:self.pan];
+        self.videoPlayerController.moviePlayer.controlStyle = MPMovieControlStyleEmbedded;
+        UIApplication.sharedApplication.keyWindow.windowLevel = UIWindowLevelStatusBar;
+    }];
 }
+
 
 
 @end
