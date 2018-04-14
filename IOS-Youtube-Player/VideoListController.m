@@ -171,7 +171,13 @@ static NSString *const defaultEndPoint = @"https://www.googleapis.com/youtube/v3
     NSString *selectedVidId = [self.videosList[indexPath.item] videoId];
     if (!((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController) {
         ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController = [[VideoViewController  alloc] init];
-        [window addSubview: ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.view];
+        UIView *appVideoViewControllerView = ((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.view;
+        appVideoViewControllerView.center = CGPointMake(appVideoViewControllerView.center.x, appVideoViewControllerView.center.y + appVideoViewControllerView.center.y * 2);
+        [window addSubview: appVideoViewControllerView];
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            appVideoViewControllerView.center = window.center;
+        } completion:nil];
+
     } else {
         
         [((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController handleTap:((AppDelegate *) UIApplication.sharedApplication.delegate).videoViewController.tap];
