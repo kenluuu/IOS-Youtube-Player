@@ -22,8 +22,8 @@
 
 @implementation VideoListController
 static NSString *const cellId = @"cellId";
-static NSString *const youtubeAPIURL = @"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=relevance&type=video&safeSearch=moderate&regionCode=US&key=AIzaSyD8NCqACDbiXkLh0CwF1ZgF0OkWy1-THmU";
-static NSString *const defaultEndPoint = @"https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyD8NCqACDbiXkLh0CwF1ZgF0OkWy1-THmU";
+static NSString *const youtubeAPIURL = @"https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&order=relevance&type=video&safeSearch=moderate&regionCode=US&key=";//Your youtube api key
+static NSString *const defaultEndPoint = @"https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key="//Your Youtube api key;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
