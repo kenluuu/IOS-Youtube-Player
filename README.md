@@ -2,9 +2,9 @@
 A replica of the IOS Youtube App that supports background audio written In Objective-C
 
 ## DEMO:
-<img src="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif" width="300" height="533"></img>
-<img src="https://im5.ezgif.com/tmp/ezgif-5-3fdc887778.gif" width="300" height="533"></img>
-<img src="https://im5.ezgif.com/tmp/ezgif-5-dd07af05eb.gif" width="300" height="533"></img>
+<img src="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif" width="275" height="533"></img>
+<img src="https://im5.ezgif.com/tmp/ezgif-5-3fdc887778.gif" width="275" height="533"></img>
+<img src="https://im5.ezgif.com/tmp/ezgif-5-dd07af05eb.gif" width="275" height="533"></img>
 
 ## Setup
 ```
