@@ -2,7 +2,7 @@
 A replica of the IOS Youtube App that supports background audio written In Objective-C
 
 ## DEMO:
-<a href="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif" width="300" height=""533></a>
+<a href="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif"></a>
 
 ## How to use
 ```
