@@ -4,8 +4,8 @@ A replica of the IOS Youtube App that supports background audio written In Objec
 ## DEMO:
 <img src="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif" width="300" height="533"></img>
 <img src="https://im5.ezgif.com/tmp/ezgif-5-3fdc887778.gif" width="300" height="533"></img>
-<img src="https://im5.ezgif.com/tmp/ezgif-5-4e988d6d93.gif" width="300" height="533"></img>
-https://im5.ezgif.com/tmp/ezgif-5-4e988d6d93.gif
+<img src="https://im5.ezgif.com/tmp/ezgif-5-dd07af05eb.gif" width="300" height="533"></img>
+
 ## Setup
 ```
 In terminal run:
