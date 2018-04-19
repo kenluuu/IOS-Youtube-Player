@@ -3,7 +3,9 @@ A replica of the IOS Youtube App that supports background audio written In Objec
 
 ## DEMO:
 <img src="https://im5.ezgif.com/tmp/ezgif-5-0fe2906598.gif" width="300" height="533"></img>
-## How to use
+<img src="https://im5.ezgif.com/tmp/ezgif-5-1338c946f0.gif" width="300" height="533"></img>
+
+## Setup
 ```
 In terminal run:
 git clone https://github.com/kenluuu/IOS-Youtube-Player.git 
@@ -13,5 +15,7 @@ and open IOS-Youtube-Player.xcworkspace in XCode
 OR
 
 Download Zip
+
+
 
 
